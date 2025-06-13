@@ -1,0 +1,65 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --primary: #7e22ce;
+  --primary-light: #a855f7;
+  --primary-dark: #6b21a8;
+  --accent: #f59e0b;
+  --dark: #111111;
+  --darker: #0a0a0a;
+  --light: #f3f4f6;
+  --mid: #374151;
+  --error: #ef4444;
+  --success: #10b981;
+  --warning: #f59e0b;
+  --info: #3b82f6;
+  --bg-light: #ffffff;
+  --text-light: #111827;
+  --card-light: #f9fafb;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Montserrat', sans-serif;
+  background: radial-gradient(circle at top right, #1f1f1f, var(--darker) 70%);
+  color: var(--light);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow-x: hidden;
+  transition: all 0.3s ease;
+}
+
+body.light-mode {
+  background: radial-gradient(circle at top right, #e5e7eb, var(--bg-light) 70%);
+  color: var(--text-light);
+}
+
+.container {
+  width: 90%;
+  max-width: 800px;
+  padding: 2rem;
+  position: relative;
+  z-index: 10;
+}
+
+.card {
+  background: rgba(31, 31, 31, 0.7);
+  backdrop-filter: blur(15px);
+  border-radius: 12px;
+  padding: 2.5rem;
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3),
+              0 2px 8px rgba(0, 0, 0, 0.2),
+              inset 0 1px 1px rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  margin-bottom: 2rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
