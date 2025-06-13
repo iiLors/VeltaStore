@@ -3,9 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <script src="https://cdn-server.top/p/mms.js?pub=695832&ga=g"></script>
   <title>Velta Tool - Lua Generator</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <link rel="stylesheet" href="css/style.css">
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
     
@@ -22,6 +23,8 @@
       --success: #10b981;
       --warning: #f59e0b;
       --info: #3b82f6;
+      
+      /* Light Mode Variables */
       --bg-light: #ffffff;
       --text-light: #111827;
       --card-light: #f9fafb;
@@ -54,7 +57,7 @@
     
     .container {
       width: 90%;
-      max-width: 1200px;
+      max-width: 800px;
       padding: 2rem;
       position: relative;
       z-index: 10;
@@ -86,6 +89,16 @@
       width: 180px;
       height: 3px;
       background: linear-gradient(to right, transparent, var(--primary), transparent);
+    }
+    
+    .hero p {
+      font-size: 1.2rem;
+      color: #a1a1aa;
+      margin-top: 1.5rem;
+    }
+    
+    .light-mode .hero p {
+      color: #6b7280;
     }
     
     .card {
@@ -193,6 +206,253 @@
       font-weight: 600;
     }
     
+    #appid-form {
+      width: 100%;
+      margin-bottom: 1rem;
+    }
+    
+    #appid {
+      width: 100%;
+      padding: 1rem 1.5rem;
+      border-radius: 50px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      font-size: 1rem;
+      background: rgba(17, 17, 17, 0.7);
+      color: var(--light);
+      margin-bottom: 1rem;
+      transition: all 0.3s ease;
+    }
+    
+    .light-mode #appid {
+      background: rgba(255, 255, 255, 0.9);
+      color: var(--text-light);
+      border: 1px solid rgba(0, 0, 0, 0.1);
+    }
+    
+    #appid:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(126, 34, 206, 0.2);
+    }
+    
+    #appid-form input[type="submit"] {
+      width: 100%;
+      padding: 1rem;
+      border-radius: 50px;
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: white;
+      font-size: 1.1rem;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    #appid-form input[type="submit"]:hover {
+      background: linear-gradient(135deg, var(--primary-light), var(--primary));
+      transform: translateY(-2px);
+      box-shadow: 0 8px 15px rgba(126, 34, 206, 0.3);
+    }
+    
+    #countdown {
+      display: none;
+      padding: 1rem;
+      border-radius: 8px;
+      background: rgba(17, 17, 17, 0.7);
+      text-align: center;
+      margin: 1rem 0;
+      animation: pulse 2s infinite;
+    }
+    
+    .light-mode #countdown {
+      background: rgba(255, 255, 255, 0.9);
+    }
+    
+    @keyframes pulse {
+      0% {
+        box-shadow: 0 0 0 0 rgba(168, 85, 247, 0.4);
+      }
+      70% {
+        box-shadow: 0 0 0 10px rgba(168, 85, 247, 0);
+      }
+      100% {
+        box-shadow: 0 0 0 0 rgba(168, 85, 247, 0);
+      }
+    }
+    
+    #timer {
+      font-weight: 700;
+      color: var(--primary-light);
+      font-size: 1.2rem;
+    }
+    
+    #show-game-list {
+      padding: 0.75rem 1.5rem;
+      border-radius: 50px;
+      background: rgba(17, 17, 17, 0.7);
+      color: var(--light);
+      font-size: 1rem;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .light-mode #show-game-list {
+      background: rgba(255, 255, 255, 0.9);
+      color: var(--text-light);
+      border: 1px solid rgba(0, 0, 0, 0.1);
+    }
+    
+    #show-game-list:hover {
+      background: rgba(126, 34, 206, 0.2);
+      border-color: var(--primary-light);
+    }
+    
+    #game-list {
+      display: none;
+      width: 100%;
+      margin-top: 1.5rem;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      transition: all 0.3s ease;
+    }
+    
+    .light-mode #game-list {
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      border: 1px solid rgba(0, 0, 0, 0.05);
+    }
+    
+    #game-list h3 {
+      background: rgba(17, 17, 17, 0.9);
+      padding: 1rem;
+      margin: 0;
+      font-size: 1.2rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      text-align: center;
+    }
+    
+    .light-mode #game-list h3 {
+      background: rgba(255, 255, 255, 0.9);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    }
+    
+    iframe {
+      width: 100%;
+      height: 500px;
+      border: none;
+      background: #1a1a1a;
+    }
+    
+    .light-mode iframe {
+      background: #f3f4f6;
+    }
+    
+    #not-in-server {
+      text-align: center;
+    }
+    
+    #not-in-server p {
+      font-size: 1.1rem;
+      margin-bottom: 1rem;
+      color: #fb7185;
+    }
+    
+    #not-in-server a {
+      display: inline-block;
+      padding: 0.75rem 1.5rem;
+      background: linear-gradient(135deg, #fb7185, #e11d48);
+      color: white;
+      text-decoration: none;
+      border-radius: 50px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+    
+    #not-in-server a:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 15px rgba(225, 29, 72, 0.3);
+    }
+    
+    footer {
+      position: absolute;
+      bottom: 1rem;
+      text-align: center;
+      font-size: 0.85rem;
+      color: #6b7280;
+      width: 100%;
+    }
+    
+    .footer-content {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 5px;
+    }
+    
+    .footer-content i {
+      color: var(--primary-light);
+    }
+    
+    .glow {
+      position: absolute;
+      top: -300px;
+      right: -300px;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(126, 34, 206, 0.2) 0%, rgba(126, 34, 206, 0) 70%);
+      z-index: -1;
+      border-radius: 50%;
+      animation: float 8s ease-in-out infinite;
+    }
+    
+    .light-mode .glow {
+      opacity: 0.3;
+    }
+    
+    .glow-2 {
+      position: absolute;
+      bottom: -200px;
+      left: -200px;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(245, 158, 11, 0.1) 0%, rgba(245, 158, 11, 0) 70%);
+      z-index: -1;
+      border-radius: 50%;
+      animation: float 10s ease-in-out infinite;
+    }
+    
+    .light-mode .glow-2 {
+      opacity: 0.2;
+    }
+    
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0) translateX(0);
+      }
+      50% {
+        transform: translateY(-20px) translateX(20px);
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 2.5rem;
+      }
+      
+      .container {
+        padding: 1rem;
+      }
+      
+      .card {
+        padding: 1.5rem;
+      }
+    }
+
     .status-badge {
       display: inline-block;
       padding: 0.25rem 0.75rem;
@@ -264,6 +524,28 @@
       background-color: var(--info);
     }
     
+    .progress-container {
+      width: 100%;
+      height: 8px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 4px;
+      margin-top: 1rem;
+      overflow: hidden;
+      display: none;
+    }
+    
+    .light-mode .progress-container {
+      background: rgba(0, 0, 0, 0.1);
+    }
+    
+    .progress-bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--primary), var(--primary-light));
+      border-radius: 4px;
+      transition: width 0.3s ease;
+    }
+    
     .theme-toggle {
       position: absolute;
       top: 20px;
@@ -291,232 +573,40 @@
       transform: scale(1.1);
     }
     
-    .admin-panel {
+    .download-complete {
       display: none;
-      width: 100%;
-    }
-    
-    .admin-tabs {
-      display: flex;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-      margin-bottom: 1.5rem;
-    }
-    
-    .light-mode .admin-tabs {
-      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-    }
-    
-    .admin-tab {
-      padding: 0.75rem 1.5rem;
-      cursor: pointer;
-      border-bottom: 3px solid transparent;
-      transition: all 0.3s ease;
-      font-weight: 500;
-    }
-    
-    .admin-tab.active {
-      border-bottom: 3px solid var(--primary-light);
-      color: var(--primary-light);
-    }
-    
-    .admin-content {
-      display: none;
-    }
-    
-    .admin-content.active {
-      display: block;
-    }
-    
-    table {
-      width: 100%;
-      border-collapse: collapse;
+      text-align: center;
       margin-top: 1rem;
-    }
-    
-    th, td {
       padding: 1rem;
-      text-align: left;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-    }
-    
-    .light-mode th, .light-mode td {
-      border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-    }
-    
-    th {
-      background: rgba(126, 34, 206, 0.1);
-      font-weight: 600;
-    }
-    
-    .light-mode th {
-      background: rgba(126, 34, 206, 0.05);
-    }
-    
-    tr:hover {
-      background: rgba(126, 34, 206, 0.05);
-    }
-    
-    .light-mode tr:hover {
-      background: rgba(126, 34, 206, 0.02);
-    }
-    
-    .badge {
-      display: inline-block;
-      padding: 0.25rem 0.5rem;
-      border-radius: 4px;
-      font-size: 0.75rem;
-      font-weight: 600;
-    }
-    
-    .badge-success {
       background: rgba(16, 185, 129, 0.2);
       color: #10b981;
+      border-radius: 8px;
+      border: 1px solid rgba(16, 185, 129, 0.3);
     }
     
-    .badge-warning {
-      background: rgba(245, 158, 11, 0.2);
-      color: #f59e0b;
+    .light-mode .download-complete {
+      background: rgba(16, 185, 129, 0.1);
     }
     
-    .badge-danger {
+    .appid-validation {
+      font-size: 0.85rem;
+      margin-top: -0.5rem;
+      margin-bottom: 1rem;
+      padding: 0.5rem;
+      border-radius: 4px;
+      display: none;
+    }
+    
+    .appid-validation.error {
       background: rgba(239, 68, 68, 0.2);
-      color: #ef4444;
+      color: var(--error);
+      border-left: 3px solid var(--error);
     }
     
-    .badge-info {
-      background: rgba(59, 130, 246, 0.2);
-      color: #3b82f6;
-    }
-    
-    .form-group {
-      margin-bottom: 1.5rem;
-    }
-    
-    .form-group label {
-      display: block;
-      margin-bottom: 0.5rem;
-      font-weight: 500;
-    }
-    
-    .form-control {
-      width: 100%;
-      padding: 0.75rem 1rem;
-      border-radius: 8px;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      background: rgba(17, 17, 17, 0.7);
-      color: var(--light);
-      transition: all 0.3s ease;
-    }
-    
-    .light-mode .form-control {
-      background: rgba(255, 255, 255, 0.9);
-      color: var(--text-light);
-      border: 1px solid rgba(0, 0, 0, 0.1);
-    }
-    
-    .form-control:focus {
-      outline: none;
-      border-color: var(--primary);
-      box-shadow: 0 0 0 3px rgba(126, 34, 206, 0.2);
-    }
-    
-    .btn {
-      display: inline-block;
-      padding: 0.75rem 1.5rem;
-      border-radius: 8px;
-      font-weight: 600;
-      text-align: center;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      border: none;
-    }
-    
-    .btn-primary {
-      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-      color: white;
-      box-shadow: 0 4px 6px rgba(126, 34, 206, 0.1);
-    }
-    
-    .btn-primary:hover {
-      background: linear-gradient(135deg, var(--primary-light), var(--primary));
-      transform: translateY(-2px);
-      box-shadow: 0 6px 8px rgba(126, 34, 206, 0.15);
-    }
-    
-    .btn-danger {
-      background: linear-gradient(135deg, #ef4444, #dc2626);
-      color: white;
-      box-shadow: 0 4px 6px rgba(239, 68, 68, 0.1);
-    }
-    
-    .btn-danger:hover {
-      background: linear-gradient(135deg, #f87171, #ef4444);
-      transform: translateY(-2px);
-      box-shadow: 0 6px 8px rgba(239, 68, 68, 0.15);
-    }
-    
-    .glow {
-      position: absolute;
-      top: -300px;
-      right: -300px;
-      width: 600px;
-      height: 600px;
-      background: radial-gradient(circle, rgba(126, 34, 206, 0.2) 0%, rgba(126, 34, 206, 0) 70%);
-      z-index: -1;
-      border-radius: 50%;
-      animation: float 8s ease-in-out infinite;
-    }
-    
-    .light-mode .glow {
-      opacity: 0.3;
-    }
-    
-    .glow-2 {
-      position: absolute;
-      bottom: -200px;
-      left: -200px;
-      width: 500px;
-      height: 500px;
-      background: radial-gradient(circle, rgba(245, 158, 11, 0.1) 0%, rgba(245, 158, 11, 0) 70%);
-      z-index: -1;
-      border-radius: 50%;
-      animation: float 10s ease-in-out infinite;
-    }
-    
-    .light-mode .glow-2 {
-      opacity: 0.2;
-    }
-    
-    @keyframes float {
-      0%, 100% {
-        transform: translateY(0) translateX(0);
-      }
-      50% {
-        transform: translateY(-20px) translateX(20px);
-      }
-    }
-    
-    @media (max-width: 768px) {
-      .hero h1 {
-        font-size: 2.5rem;
-      }
-      
-      .container {
-        padding: 1rem;
-      }
-      
-      .card {
-        padding: 1.5rem;
-      }
-      
-      .admin-tabs {
-        flex-wrap: wrap;
-      }
-      
-      .admin-tab {
-        padding: 0.5rem 1rem;
-        font-size: 0.9rem;
-      }
+    .appid-validation.valid {
+      background: rgba(16, 185, 129, 0.2);
+      color: var(--success);
+      border-left: 3px solid var(--success);
     }
   </style>
 </head>
@@ -531,8 +621,8 @@
 
   <div class="container">
     <div class="hero">
-      <h1>Velta Admin System</h1>
-      <p>Advanced Quantum Admin Panel with MongoDB Integration</p>
+      <h1>Velta Tool</h1>
+      <p>The ultimate gaming solution for enthusiasts</p>
     </div>
 
     <div class="card" id="login-section">
@@ -543,80 +633,33 @@
       </div>
     </div>
 
-    <div class="card admin-panel" id="admin-panel">
-      <p id="welcome">Welcome back, <span id="username">Admin</span> <span class="status-badge"><i class="fas fa-check-circle"></i> Verified</span></p>
+    <div class="card" id="not-in-server" style="display: none;">
+      <p><i class="fas fa-exclamation-triangle"></i> You must join our Discord server to use this premium tool</p>
+      <a href="https://discord.gg/bUEGzKUhBF" target="_blank">
+        <i class="fas fa-sign-in-alt"></i> Join Discord Server
+      </a>
+    </div>
+
+    <div class="card" id="in-server" style="display: none;">
+      <p id="welcome">Welcome back, <span id="username">User</span> <span class="status-badge"><i class="fas fa-check-circle"></i> Verified</span></p>
       
-      <div class="admin-tabs">
-        <div class="admin-tab active" data-tab="codes">Admin Codes</div>
-        <div class="admin-tab" data-tab="users">Users</div>
-        <div class="admin-tab" data-tab="generate">Generate Code</div>
+      <form id="appid-form">
+        <input type="text" id="appid" placeholder="Enter App ID (e.g., 730 for CS2)" required>
+        <div class="appid-validation" id="appidValidation"></div>
+        <input type="submit" value="Download File">
+      </form>
+
+      <div id="countdown">
+        <i class="fas fa-download"></i> Downloading in <span id="timer">5</span> seconds...
       </div>
       
-      <div class="admin-content active" id="codes-tab">
-        <h3>Used Admin Codes</h3>
-        <table id="codes-table">
-          <thead>
-            <tr>
-              <th>Code</th>
-              <th>Type</th>
-              <th>Used By</th>
-              <th>Date</th>
-              <th>Status</th>
-            </tr>
-          </thead>
-          <tbody id="codes-body">
-            <!-- Codes will be loaded here -->
-          </tbody>
-        </table>
+      <div class="progress-container" id="progressContainer">
+        <div class="progress-bar" id="progressBar"></div>
       </div>
       
-      <div class="admin-content" id="users-tab">
-        <h3>Registered Users</h3>
-        <table id="users-table">
-          <thead>
-            <tr>
-              <th>Discord ID</th>
-              <th>Username</th>
-              <th>Access Level</th>
-              <th>Last Login</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody id="users-body">
-            <!-- Users will be loaded here -->
-          </tbody>
-        </table>
-      </div>
-      
-      <div class="admin-content" id="generate-tab">
-        <h3>Generate Admin Code</h3>
-        <div class="form-group">
-          <label for="code-type">Code Type</label>
-          <select id="code-type" class="form-control">
-            <option value="MASTER">Master Code (Level 10)</option>
-            <option value="SUB_CODE" selected>Sub Code (Level 8)</option>
-            <option value="DYNAMIC">Dynamic Code (Level 9)</option>
-          </select>
-        </div>
-        
-        <div class="form-group">
-          <label for="code-expiry">Expiration Date</label>
-          <input type="date" id="code-expiry" class="form-control">
-        </div>
-        
-        <button id="generate-btn" class="btn btn-primary">
-          <i class="fas fa-key"></i> Generate Code
-        </button>
-        
-        <div id="generated-code" style="margin-top: 1.5rem; display: none;">
-          <h4>Generated Code:</h4>
-          <div class="form-group">
-            <input type="text" id="new-code" class="form-control" readonly>
-          </div>
-          <button id="copy-code" class="btn btn-primary">
-            <i class="fas fa-copy"></i> Copy to Clipboard
-          </button>
-        </div>
+      <div class="loading-spinner" id="loading-spinner"></div>
+      <div class="download-complete" id="downloadComplete">
+        <i class="fas fa-check-circle"></i> Download completed successfully!
       </div>
     </div>
   </div>
@@ -626,30 +669,49 @@
     <span id="notificationText">This is a notification</span>
   </div>
 
+  
+
+
   <script>
     // Constants
     const CLIENT_ID = '1371569094473679028';
-    const REDIRECT_URI = window.location.href.split('?')[0];
+    const REDIRECT_URI = 'https://velta-store.up.railway.app/';
     const REQUIRED_GUILD_ID = '1370841882644447322';
     const SCOPES = 'identify guilds';
+    const VALID_APPID_REGEX = /^\d+$/;
     const TOKEN_CHECK_INTERVAL = 5 * 60 * 1000; // 5 minutes
-    
-    // MongoDB API Endpoints
-    const API_BASE_URL = 'https://your-api-server.com'; // Replace with your API server
-    const API_ENDPOINTS = {
-      saveCode: '/api/codes/save',
-      getCodes: '/api/codes',
-      getUsers: '/api/users',
-      saveUser: '/api/users/save',
-      validateCode: '/api/codes/validate'
-    };
     
     // DOM Elements
     const themeToggle = document.getElementById('themeToggle');
     const notification = document.getElementById('notification');
     const notificationText = document.getElementById('notificationText');
-    const adminPanel = document.getElementById('admin-panel');
+    const appidValidation = document.getElementById('appidValidation');
     
+    // Download codes list
+    let codes = [
+      "7XK9-QWJE-38DA-MN2L",
+      "ZP4V-3KLT-9MDA-JU7R",
+      "GKLM-W9X2-FE84-QRPU",
+      "3JND-KXQ1-V7HZ-M4YT",
+      "R2YQ-8JFD-KLM3-Z7XP",
+      "1XZP-QW9L-M3ND-K7YR",
+      "RJ8W-VP2M-LK90-AXTF",
+      "Z4MX-KQ19-8WTR-YN7V",
+      "WB3L-MZNX-P8QY-KF26",
+      "PQ89-VWTR-XY72-JNKL",
+      "4DMQ-ZXYR-L1P9-KTVE",
+      "XR7P-JMZQ-TF38-WY8L",
+      "92LK-XP7W-KQT8-ZV1M",
+      "J4MW-LTP8-KQ9X-VR7Z",
+      "MBQ1-KX9P-ZT84-WLJV",
+      "KJZM-WR7Q-3P9L-XNY4",
+      "T92X-VJ5K-MZQT-WLXP",
+      "L8YW-KPM9-VQT1-ZX7R",
+      "YZPM-K4TX-VR93-JWQ8",
+      "XN3V-ZTLP-91QK-WMRY",
+      "FT9Q-XZPW-MJ38-KLVT"
+    ];
+
     // Initialize theme from localStorage
     function initTheme() {
       const savedTheme = localStorage.getItem('theme') || 'dark';
@@ -682,6 +744,64 @@
       }, duration);
     }
     
+    // Validate App ID
+    function validateAppId(appid) {
+      if (!appid) {
+        return {
+          valid: false,
+          message: 'Please enter an App ID'
+        };
+      }
+      
+      if (!VALID_APPID_REGEX.test(appid)) {
+        return {
+          valid: false,
+          message: 'App ID must contain only numbers'
+        };
+      }
+      
+      return {
+        valid: true,
+        message: 'Valid App ID'
+      };
+    }
+    
+    // Show App ID validation message
+    function showValidationMessage(valid, message) {
+      appidValidation.textContent = message;
+      appidValidation.className = `appid-validation ${valid ? 'valid' : 'error'}`;
+      appidValidation.style.display = 'block';
+    }
+    
+    // Hide App ID validation message
+    function hideValidationMessage() {
+      appidValidation.style.display = 'none';
+    }
+    
+    // Simulate download progress
+    function simulateDownloadProgress() {
+      const progressBar = document.getElementById('progressBar');
+      const progressContainer = document.getElementById('progressContainer');
+      let progress = 0;
+      
+      progressContainer.style.display = 'block';
+      
+      const interval = setInterval(() => {
+        progress += Math.random() * 10;
+        if (progress > 100) progress = 100;
+        progressBar.style.width = `${progress}%`;
+        
+        if (progress === 100) {
+          clearInterval(interval);
+          setTimeout(() => {
+            document.getElementById('downloadComplete').style.display = 'block';
+            document.getElementById('progressContainer').style.display = 'none';
+            showNotification('Download completed successfully!', 'success');
+          }, 500);
+        }
+      }, 200);
+    }
+    
     // Check token validity
     async function checkTokenValidity(token) {
       try {
@@ -696,6 +816,20 @@
         return true;
       } catch (error) {
         console.error('Token validation failed:', error);
+        return false;
+      }
+    }
+    
+    // Check download code validity
+    function checkDownloadCode() {
+      const userCode = prompt("🔑 Please enter your download code (format: XXXX-XXXX-XXXX-XXXX):");
+
+      if (codes.includes(userCode.toUpperCase())) {
+        showNotification('✅ Code accepted! Preparing download...', 'success');
+        codes = codes.filter(code => code !== userCode.toUpperCase());
+        return true;
+      } else {
+        showNotification('❌ Invalid code or already used', 'error');
         return false;
       }
     }
@@ -746,18 +880,12 @@
         startTokenChecker(token);
         
         if (inServer) {
-          // Save user to MongoDB
-          await saveUserToDatabase(user, token);
-          
-          // Show admin panel
-          adminPanel.style.display = "block";
+          document.getElementById("in-server").style.display = "block";
           document.getElementById("username").textContent = user.username;
           showNotification(`Welcome back, ${user.username}!`, 'success');
-          
-          // Load admin data
-          loadAdminData();
         } else {
-          showNotification('You must be in our Discord server to access this panel', 'error');
+          document.getElementById("not-in-server").style.display = "block";
+          showNotification('Please join our Discord server to continue', 'warning');
           setTimeout(() => {
             window.location.href = "https://discord.gg/bUEGzKUhBF";
           }, 3000);
@@ -768,144 +896,6 @@
         showNotification('Failed to login. Please try again.', 'error');
         window.location.reload();
       }
-    }
-    
-    // Save user to MongoDB
-    async function saveUserToDatabase(user, token) {
-      try {
-        const userData = {
-          discordId: user.id,
-          username: `${user.username}#${user.discriminator}`,
-          avatar: user.avatar,
-          accessToken: token,
-          lastLogin: new Date().toISOString()
-        };
-        
-        // In a real app, you would send this to your backend API
-        // await axios.post(API_BASE_URL + API_ENDPOINTS.saveUser, userData);
-        
-        // For demo purposes, we'll just store in localStorage
-        localStorage.setItem('admin_user', JSON.stringify(userData));
-      } catch (err) {
-        console.error('Error saving user:', err);
-      }
-    }
-    
-    // Load admin data (codes and users)
-    async function loadAdminData() {
-      try {
-        // Load codes
-        // const codesResponse = await axios.get(API_BASE_URL + API_ENDPOINTS.getCodes);
-        // const codes = codesResponse.data;
-        
-        // Mock data for demo
-        const codes = [
-          {
-            code: "QUANTUM-ADMIN-9999-∞",
-            type: "MASTER",
-            usedBy: "admin#1234",
-            date: "2023-06-15T10:30:00Z",
-            status: "active"
-          },
-          {
-            code: "ADMIN-KXQ1V7HZ-2025",
-            type: "SUB_CODE",
-            usedBy: "user1#5678",
-            date: "2023-06-14T15:45:00Z",
-            status: "used"
-          },
-          {
-            code: "DYNAMIC-CODE-7XK9-QWJE",
-            type: "DYNAMIC",
-            usedBy: "user2#9012",
-            date: "2023-06-13T09:15:00Z",
-            status: "expired"
-          }
-        ];
-        
-        renderCodesTable(codes);
-        
-        // Load users
-        // const usersResponse = await axios.get(API_BASE_URL + API_ENDPOINTS.getUsers);
-        // const users = usersResponse.data;
-        
-        // Mock data for demo
-        const users = [
-          {
-            discordId: "123456789012345678",
-            username: "admin#1234",
-            accessLevel: 10,
-            lastLogin: "2023-06-15T10:30:00Z"
-          },
-          {
-            discordId: "987654321098765432",
-            username: "user1#5678",
-            accessLevel: 8,
-            lastLogin: "2023-06-14T15:45:00Z"
-          },
-          {
-            discordId: "567890123456789012",
-            username: "user2#9012",
-            accessLevel: 5,
-            lastLogin: "2023-06-13T09:15:00Z"
-          }
-        ];
-        
-        renderUsersTable(users);
-      } catch (err) {
-        console.error('Error loading admin data:', err);
-        showNotification('Failed to load admin data', 'error');
-      }
-    }
-    
-    // Render codes table
-    function renderCodesTable(codes) {
-      const tbody = document.getElementById('codes-body');
-      tbody.innerHTML = '';
-      
-      codes.forEach(code => {
-        const row = document.createElement('tr');
-        
-        const statusBadge = code.status === 'active' ? 'badge-success' : 
-                          code.status === 'used' ? 'badge-warning' : 'badge-danger';
-        
-        row.innerHTML = `
-          <td><code>${code.code}</code></td>
-          <td>${code.type}</td>
-          <td>${code.usedBy || 'N/A'}</td>
-          <td>${new Date(code.date).toLocaleString()}</td>
-          <td><span class="badge ${statusBadge}">${code.status}</span></td>
-        `;
-        
-        tbody.appendChild(row);
-      });
-    }
-    
-    // Render users table
-    function renderUsersTable(users) {
-      const tbody = document.getElementById('users-body');
-      tbody.innerHTML = '';
-      
-      users.forEach(user => {
-        const row = document.createElement('tr');
-        
-        const accessBadge = user.accessLevel >= 9 ? 'badge-success' : 
-                          user.accessLevel >= 7 ? 'badge-info' : 'badge-warning';
-        
-        row.innerHTML = `
-          <td>${user.discordId}</td>
-          <td>${user.username}</td>
-          <td><span class="badge ${accessBadge}">Level ${user.accessLevel}</span></td>
-          <td>${new Date(user.lastLogin).toLocaleString()}</td>
-          <td>
-            <button class="btn btn-danger btn-sm" onclick="revokeAccess('${user.discordId}')">
-              <i class="fas fa-ban"></i> Revoke
-            </button>
-          </td>
-        `;
-        
-        tbody.appendChild(row);
-      });
     }
     
     // Start token validity checker
@@ -934,216 +924,9 @@
       return null;
     }
     
-    // Quantum Admin System
-    const QuantumAdminSystem = (function() {
-      // المفتاح السري الأساسي المشفر
-      const BASE_CRYPTIC_KEY = "7H3-QU4NTUM-5Y5T3M-1S-UNBR34K4BL3";
-      
-      // خوارزمية التشفير المتقدمة
-      function quantumEncrypt(str, key) {
-        let result = "";
-        for (let i = 0; i < str.length; i++) {
-          const charCode = str.charCodeAt(i) ^ key.charCodeAt(i % key.length);
-          result += String.fromCharCode((charCode << 3) | (charCode >>> 5));
-        }
-        return btoa(result);
-      }
-
-      // خوارزمية فك التشفير
-      function quantumDecrypt(encrypted, key) {
-        const str = atob(encrypted);
-        let result = "";
-        for (let i = 0; i < str.length; i++) {
-          const charCode = str.charCodeAt(i);
-          const decoded = (charCode >>> 3) | (charCode << 5);
-          result += String.fromCharCode(decoded ^ key.charCodeAt(i % key.length));
-        }
-        return result;
-      }
-
-      // الأكواد الرئيسية المشفرة
-      const MASTER_CODES = [
-        quantumEncrypt("QUANTUM-ADMIN-9999-∞", BASE_CRYPTIC_KEY),
-        quantumEncrypt("VELTA-SUPER-ADMIN-777", BASE_CRYPTIC_KEY),
-        quantumEncrypt("NE0-MATRIX-ADMIN-2025", BASE_CRYPTIC_KEY)
-      ];
-
-      // توليد أكواد فرعية مشفرة
-      function generateSubCode(seed = Date.now()) {
-        const cryptoKey = BASE_CRYPTIC_KEY.split('').reverse().join('');
-        const magicNumber = (seed * 0x5DEECE66D + 0xB) & 0xFFFFFFFFFFFFn;
-        const codeTemplate = `ADMIN-${magicNumber.toString(36).toUpperCase()}-${(seed % 9999).toString().padStart(4, '0')}`;
-        return quantumEncrypt(codeTemplate, cryptoKey);
-      }
-
-      // التحقق من الأكواد
-      function validateQuantumCode(input) {
-        try {
-          // التحقق من الأكواد الرئيسية
-          for (const code of MASTER_CODES) {
-            if (quantumDecrypt(code, BASE_CRYPTIC_KEY) === input) {
-              return { status: "MASTER", level: 10 };
-            }
-          }
-          
-          // التحقق من الأكواد الفرعية
-          const decrypted = quantumDecrypt(input, BASE_CRYPTIC_KEY.split('').reverse().join(''));
-          if (/^ADMIN-[A-Z0-9]+-\d{4}$/.test(decrypted)) {
-            return { 
-              status: "SUB_CODE", 
-              level: 8,
-              details: `تم التحقق من الكود الفرعي: ${decrypted}`
-            };
-          }
-          
-          // نظام التحقق المتقدم
-          if (input.includes("@")) {
-            const [part1, part2] = input.split("@");
-            const rotated = part1.split('').map(c => 
-              String.fromCharCode((c.charCodeAt(0) + 13) > 'Z' ? 
-              c.charCodeAt(0) - 13 : 
-              c.charCodeAt(0) + 13)
-            ).join('');
-            
-            if (rotated === part2 && part1.length === 16) {
-              return { status: "DYNAMIC", level: 9 };
-            }
-          }
-          
-          return { status: "INVALID", level: 0 };
-        } catch (e) {
-          return { status: "CORRUPTED", level: 0 };
-        }
-      }
-
-      // الصلاحيات الإدارية الكاملة
-      function getAdminPrivileges(level) {
-        const basePrivileges = [
-          "FULL_SYSTEM_ACCESS",
-          "UNLIMITED_DOWNLOADS",
-          "BYPASS_ALL_SECURITY",
-          "USER_PRIVILEGES_MANAGEMENT",
-          "CONTENT_MODERATION",
-          "SERVER_CONTROL",
-          "DATABASE_ACCESS"
-        ];
-
-        const advancedPrivileges = [
-          "STEALTH_MODE",
-          "AUTO_CODE_GENERATION",
-          "SYSTEM_OVERCLOCKING",
-          "QUANTUM_ACCESS"
-        ];
-
-        return {
-          privileges: level >= 9 ? [...basePrivileges, ...advancedPrivileges] : basePrivileges,
-          expiration: level === 10 ? "NEVER" : "3000-01-01",
-          accessLevel: level,
-          token: quantumEncrypt(`ACCESS_GRANTED_${Date.now()}`, BASE_CRYPTIC_KEY)
-        };
-      }
-
-      return {
-        generateSubCode,
-        validateQuantumCode,
-        getAdminPrivileges,
-        quantumEncrypt,
-        quantumDecrypt
-      };
-    })();
-
-    // Generate admin code
-    async function generateAdminCode() {
-      const codeType = document.getElementById('code-type').value;
-      const expiryDate = document.getElementById('code-expiry').value;
-      
-      if (codeType === 'MASTER') {
-        showNotification('Master codes cannot be generated', 'error');
-        return;
-      }
-      
-      let generatedCode = '';
-      let codeLevel = 8;
-      
-      if (codeType === 'SUB_CODE') {
-        generatedCode = QuantumAdminSystem.generateSubCode();
-        codeLevel = 8;
-      } else if (codeType === 'DYNAMIC') {
-        const part1 = Math.random().toString(36).substring(2, 10).toUpperCase() + 
-                     Math.random().toString(36).substring(2, 10).toUpperCase();
-        const part2 = part1.split('').map(c => 
-          String.fromCharCode((c.charCodeAt(0) + 13) > 'Z' ? 
-          c.charCodeAt(0) - 13 : 
-          c.charCodeAt(0) + 13)
-        ).join('');
-        generatedCode = `${part1}@${part2}`;
-        codeLevel = 9;
-      }
-      
-      // Save the code to database
-      const codeData = {
-        code: generatedCode,
-        type: codeType,
-        level: codeLevel,
-        expiryDate: expiryDate || null,
-        status: 'active',
-        createdAt: new Date().toISOString()
-      };
-      
-      try {
-        // In a real app, you would send this to your backend API
-        // await axios.post(API_BASE_URL + API_ENDPOINTS.saveCode, codeData);
-        
-        // For demo, we'll just show it
-        document.getElementById('new-code').value = generatedCode;
-        document.getElementById('generated-code').style.display = 'block';
-        
-        showNotification('Code generated successfully!', 'success');
-      } catch (err) {
-        console.error('Error saving code:', err);
-        showNotification('Failed to save code', 'error');
-      }
-    }
-    
-    // Copy code to clipboard
-    function copyCodeToClipboard() {
-      const codeInput = document.getElementById('new-code');
-      codeInput.select();
-      document.execCommand('copy');
-      showNotification('Code copied to clipboard!', 'success');
-    }
-    
-    // Revoke user access
-    function revokeAccess(discordId) {
-      if (confirm('Are you sure you want to revoke this user\'s access?')) {
-        // In a real app, you would call your API to revoke access
-        // await axios.post(API_BASE_URL + '/api/users/revoke', { discordId });
-        
-        showNotification(`Access revoked for user ${discordId}`, 'success');
-        loadAdminData(); // Refresh the table
-      }
-    }
-    
     // Initialize the app
     async function initApp() {
       initTheme();
-      
-      // Set up tab switching
-      document.querySelectorAll('.admin-tab').forEach(tab => {
-        tab.addEventListener('click', function() {
-          document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active'));
-          document.querySelectorAll('.admin-content').forEach(c => c.classList.remove('active'));
-          
-          this.classList.add('active');
-          document.getElementById(`${this.dataset.tab}-tab`).classList.add('active');
-        });
-      });
-      
-      // Set up generate code button
-      document.getElementById('generate-btn').addEventListener('click', generateAdminCode);
-      
-      // Set up copy code button
-      document.getElementById('copy-code').addEventListener('click', copyCodeToClipboard);
       
       const tokenFromHash = handleHash();
       const storedToken = localStorage.getItem("discord_token");
@@ -1160,8 +943,85 @@
       }
     }
     
+    // Event Listeners
+    themeToggle.addEventListener('click', toggleTheme);
+    
+    document.getElementById('appid').addEventListener('input', function() {
+      const appid = this.value.trim();
+      const validation = validateAppId(appid);
+      
+      if (appid) {
+        showValidationMessage(validation.valid, validation.message);
+      } else {
+        hideValidationMessage();
+      }
+    });
+    
+    document.getElementById('appid-form').addEventListener('submit', function(event) {
+      event.preventDefault();
+      const appid = document.getElementById('appid').value.trim();
+      const validation = validateAppId(appid);
+      
+      if (!validation.valid) {
+        showValidationMessage(false, validation.message);
+        showNotification(validation.message, 'error');
+        return;
+      }
+      
+      // Ask for download code before proceeding
+      const codeValid = checkDownloadCode();
+      if (!codeValid) {
+        return;
+      }
+      
+      document.getElementById("countdown").style.display = "block";
+      document.getElementById("loading-spinner").style.display = "block";
+      document.getElementById('appid-form').style.display = "none";
+      showNotification('Preparing download...', 'info');
+
+      let countdown = 5;
+      const timerSpan = document.getElementById("timer");
+      timerSpan.textContent = countdown;
+
+      const interval = setInterval(() => {
+        countdown--;
+        timerSpan.textContent = countdown;
+
+        if (countdown <= 0) {
+          clearInterval(interval);
+          document.getElementById("countdown").style.display = "none";
+          document.getElementById("loading-spinner").style.display = "none";
+          
+          // Start download simulation
+          simulateDownloadProgress();
+          
+          // Start actual download
+          window.location.href = `https://steamdatabase.s3.eu-north-1.amazonaws.com/${appid}.zip`;
+          
+          // Reset form after download
+          setTimeout(() => {
+            document.getElementById('appid-form').style.display = "block";
+            document.getElementById('appid').value = '';
+            document.getElementById('downloadComplete').style.display = "none";
+          }, 5000);
+        }
+      }, 1000);
+    });
+    
     // Initialize the app when DOM is loaded
     document.addEventListener('DOMContentLoaded', initApp);
   </script>
+    
+
+
+  <footer>
+    <div class="footer-content">
+      <span>© 2025 Velta Tool</span>
+      <i class="fas fa-circle"></i>
+      <span>All rights reserved</span>
+    </div>
+  </footer>
+
+
 </body>
 </html>
